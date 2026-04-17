@@ -1,169 +1,167 @@
-
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal 11 TJKT | Whibie Aldyansyah S.</title>
+    <title>Jadwal Belajar | Whibie Aldyansyah S.</title>
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --accent-blue: #38bdf8;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            --success: #22c55e;
-            --border: #334155;
+            --primary-blue: #0ea5e9;
+            --light-blue: #e0f2fe;
+            --bg-body: #f8fafc;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --success: #10b981;
+            --danger: #f43f5e;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
         }
 
-        .container {
+        .main-card {
             width: 100%;
-            max-width: 1100px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            max-width: 1000px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             padding: 30px;
+            border: 1px solid var(--border);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .header h1 {
             margin: 0;
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-blue);
+            font-size: 1.8rem;
         }
 
         .header p {
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 10px;
+            margin: 5px 0;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 1px;
         }
 
-        .toolbar {
+        /* Control Panel */
+        .controls {
             display: flex;
-            justify-content: space-between;
+            background: var(--light-blue);
+            padding: 15px;
+            border-radius: 12px;
+            gap: 10px;
+            margin-bottom: 25px;
             align-items: center;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .badge {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-blue);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid var(--accent-blue);
+        input[type="text"] {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+            outline: none;
         }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-add { background: var(--primary-blue); color: white; }
+        .btn-save { background: var(--success); color: white; }
+        .btn-reset { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         /* Table Styling */
-        .table-wrapper {
+        .table-area {
             overflow-x: auto;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid var(--border);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: #1e293b;
+            background: var(--white);
         }
 
         th {
-            background: #0f172a;
-            color: var(--accent-blue);
-            padding: 20px;
-            text-transform: uppercase;
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 15px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-align: center;
+            text-transform: uppercase;
         }
 
         td {
-            padding: 15px;
+            padding: 12px;
             border: 1px solid var(--border);
             text-align: center;
-            transition: all 0.3s;
+            font-size: 0.95rem;
             min-width: 120px;
         }
 
-        td:first-child {
-            background: #0f172a;
-            font-weight: bold;
-            color: var(--text-dim);
-        }
-
-        /* Fitur Edit */
+        /* Cell Edit Mode */
         td[contenteditable="true"]:focus {
-            outline: 2px solid var(--accent-blue);
-            background: rgba(56, 189, 248, 0.05);
+            background: #fff;
+            outline: 2px solid var(--primary-blue);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
         }
 
-        .mapel-jurusan { color: #fbbf24; font-weight: 600; }
-        .mapel-umum { color: #f8fafc; }
-
-        .btn-save {
-            background: var(--accent-blue);
-            color: #0f172a;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+        .time-cell {
+            background: var(--bg-body);
             font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            color: var(--primary-blue);
         }
 
-        .btn-save:hover {
-            transform: translateY(-2px);
-            background: #7dd3fc;
-        }
+        .action-cell { width: 50px; color: var(--danger); cursor: pointer; font-weight: bold; }
 
-        .footer {
-            margin-top: 20px;
-            color: var(--text-dim);
+        .hint {
+            margin-top: 15px;
             font-size: 0.85rem;
-            display: flex;
-            gap: 20px;
+            color: var(--text-light);
+            font-style: italic;
         }
-
-        .legend { display: flex; gap: 15px; align-items: center; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="main-card">
     <div class="header">
+        <p>JADWAL BELAJAR 11 TJKT</p>
         <h1>Whibie Aldyansyah S.</h1>
-        <p>Kelas 11 TJKT - Schedule System</p>
     </div>
 
-    <div class="toolbar">
-        <div class="badge">Mode: Interactive Editor</div>
-        <button class="btn-save" onclick="saveData()">SIMPAN JADWAL</button>
+    <div class="controls">
+        <input type="text" id="timeInput" placeholder="Masukkan Waktu (Contoh: 07:30 - 09:00)">
+        <button class="btn btn-add" onclick="autoAddRow()">+ Tambah Baris</button>
+        <button class="btn btn-save" onclick="saveJadwal()">💾 Simpan Jadwal</button>
+        <button class="btn btn-reset" onclick="resetJadwal()">Reset</button>
     </div>
 
-    <div class="table-wrapper">
-        <table id="jadwalTable">
+    <div class="table-area">
+        <table>
             <thead>
                 <tr>
                     <th>Waktu</th>
@@ -172,80 +170,101 @@
                     <th>Rabu</th>
                     <th>Kamis</th>
                     <th>Jumat</th>
+                    <th style="background: #f1f5f9; color: #64748b;">Aksi</th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
+            <tbody id="scheduleBody">
                 </tbody>
         </table>
     </div>
 
-    <div class="footer">
-        <div class="legend">
-            <span class="dot" style="background:#fbbf24"></span> Pelajaran Jurusan
-        </div>
-        <div class="legend">
-            <span class="dot" style="background:#f8fafc"></span> Pelajaran Umum
-        </div>
-        <div>* Klik pada teks pelajaran untuk mengubah isi</div>
+    <div class="hint">
+        * Tip: Klik pada kotak mana saja untuk mengubah isi pelajaran. Klik "Simpan Jadwal" agar data tidak hilang.
     </div>
 </div>
 
 <script>
-    // Data Default (Pelajaran Umum & Jurusan)
-    const defaultData = [
-        ["07:30 - 09:00", "AIJ", "Matematika", "TLJ", "B. Inggris", "PKK"],
-        ["09:15 - 10:45", "ASJ", "B. Indonesia", "Wan", "Pkn", "Agama"],
-        ["11:00 - 12:30", "Keamanan Jaringan", "Fisika", "Sistem Radio", "Sejarah", "Olahraga"]
-    ];
+    // Load data saat pertama kali buka
+    window.onload = function() {
+        const savedData = JSON.parse(localStorage.getItem('jadwal_whibie_v3'));
+        if (savedData && savedData.length > 0) {
+            renderTable(savedData);
+        } else {
+            // Data awal contoh
+            const defaultRows = [
+                ["07:30 - 09:00", "Matematika", "AIJ", "B. Inggris", "ASJ", "Agama"]
+            ];
+            renderTable(defaultRows);
+        }
+    };
 
-    const jurusanKeywords = ["AIJ", "ASJ", "TLJ", "Wan", "Keamanan", "Jaringan", "Radio", "Cloud", "TJKT", "PKK"];
+    // Fungsi Tambah Baris Otomatis
+    function autoAddRow() {
+        const timeVal = document.getElementById('timeInput').value;
+        if (!timeVal) {
+            alert("Silakan masukkan rentang waktu terlebih dahulu!");
+            return;
+        }
 
-    function initTable() {
-        const savedData = JSON.parse(localStorage.getItem('whibieJadwal')) || defaultData;
-        const tbody = document.getElementById('tableBody');
+        const tbody = document.getElementById('scheduleBody');
+        const tr = document.createElement('tr');
+        
+        // Buat 6 kolom otomatis (Waktu + 5 Hari)
+        let rowHtml = `<td class="time-cell" contenteditable="true">${timeVal}</td>`;
+        for (let i = 0; i < 5; i++) {
+            rowHtml += `<td contenteditable="true">Isi Pelajaran</td>`;
+        }
+        rowHtml += `<td class="action-cell" onclick="deleteRow(this)">×</td>`;
+        
+        tr.innerHTML = rowHtml;
+        tbody.appendChild(tr);
+        document.getElementById('timeInput').value = ''; // Reset input
+    }
+
+    function renderTable(dataArray) {
+        const tbody = document.getElementById('scheduleBody');
         tbody.innerHTML = '';
-
-        savedData.forEach((rowData, rowIndex) => {
+        dataArray.forEach(rowData => {
             const tr = document.createElement('tr');
-            rowData.forEach((cellData, cellIndex) => {
-                const td = document.createElement('td');
-                
-                // Kolom jam tidak bisa diedit
-                if (cellIndex !== 0) {
-                    td.contentEditable = "true";
-                    // Cek apakah pelajaran jurusan
-                    const isJurusan = jurusanKeywords.some(key => cellData.toLowerCase().includes(key.toLowerCase()));
-                    td.className = isJurusan ? "mapel-jurusan" : "mapel-umum";
-                }
-
-                td.innerText = cellData;
-                tr.appendChild(td);
-            });
+            let rowHtml = `<td class="time-cell" contenteditable="true">${rowData[0]}</td>`;
+            for (let i = 1; i < 6; i++) {
+                rowHtml += `<td contenteditable="true">${rowData[i] || '-'}</td>`;
+            }
+            rowHtml += `<td class="action-cell" onclick="deleteRow(this)">×</td>`;
+            tr.innerHTML = rowHtml;
             tbody.appendChild(tr);
         });
     }
 
-    function saveData() {
-        const rows = document.querySelectorAll('#tableBody tr');
-        const newData = [];
+    function deleteRow(btn) {
+        if(confirm("Hapus baris ini?")) {
+            btn.parentElement.remove();
+        }
+    }
+
+    function saveJadwal() {
+        const rows = document.querySelectorAll('#scheduleBody tr');
+        const allData = [];
 
         rows.forEach(row => {
             const rowData = [];
-            row.querySelectorAll('td').forEach(cell => {
+            row.querySelectorAll('td:not(.action-cell)').forEach(cell => {
                 rowData.push(cell.innerText);
             });
-            newData.push(rowData);
+            allData.push(rowData);
         });
 
-        localStorage.setItem('whibieJadwal', JSON.stringify(newData));
-        alert('Jadwal Whibie Aldyansyah S. berhasil disimpan!');
-        initTable(); // Refresh warna
+        localStorage.setItem('jadwal_whibie_v3', JSON.stringify(allData));
+        alert("Jadwal Whibie Aldyansyah S. berhasil disimpan di browser!");
     }
 
-    // Jalankan inisialisasi
-    initTable();
+    function resetJadwal() {
+        if(confirm("Hapus semua jadwal dan reset?")) {
+            localStorage.removeItem('jadwal_whibie_v3');
+            location.reload();
+        }
+    }
 </script>
 
 </body>
-</html># Website-Jadwal_Zelvano
-Web Whibie Aldyansyah S.
+</html>
