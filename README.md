@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -6,97 +6,110 @@
     <title>Jadwal Belajar | Whibie Aldyansyah S.</title>
     <style>
         :root {
-            --primary-blue: #0ea5e9;
-            --light-blue: #e0f2fe;
-            --bg-body: #f8fafc;
-            --text-dark: #0f172a;
-            --text-light: #64748b;
+            --primary: #0284c7; /* Biru cerah */
+            --secondary: #e0f2fe; /* Biru muda */
+            --bg: #f8fafc;
             --white: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
             --success: #10b981;
             --danger: #f43f5e;
             --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
         }
 
-        .main-card {
+        .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             padding: 30px;
             border: 1px solid var(--border);
         }
 
+        /* Header Section */
         .header {
             text-align: center;
             margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
         }
 
         .header h1 {
             margin: 0;
-            color: var(--primary-blue);
-            font-size: 1.8rem;
+            color: var(--primary);
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .header p {
-            margin: 5px 0;
-            color: var(--text-light);
-            font-weight: 500;
-            letter-spacing: 1px;
+            margin: 5px 0 0;
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         /* Control Panel */
         .controls {
             display: flex;
-            background: var(--light-blue);
-            padding: 15px;
-            border-radius: 12px;
-            gap: 10px;
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 15px;
+            gap: 12px;
             margin-bottom: 25px;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        input[type="text"] {
-            padding: 10px 15px;
+        .controls input {
+            padding: 12px 15px;
             border: 1px solid var(--border);
             border-radius: 8px;
             flex: 1;
-            min-width: 200px;
+            min-width: 250px;
+            font-size: 1rem;
             outline: none;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+        .controls input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
         }
 
-        .btn-add { background: var(--primary-blue); color: white; }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-add { background: var(--primary); color: white; }
         .btn-save { background: var(--success); color: white; }
-        .btn-reset { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+        .btn-reset { background: white; color: var(--danger); border: 1px solid var(--danger); }
         .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
 
         /* Table Styling */
         .table-area {
             overflow-x: auto;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid var(--border);
         }
 
@@ -107,56 +120,77 @@
         }
 
         th {
-            background: var(--primary-blue);
+            background: var(--primary);
             color: var(--white);
-            padding: 15px;
+            padding: 18px;
             font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         td {
-            padding: 12px;
+            padding: 15px;
             border: 1px solid var(--border);
             text-align: center;
-            font-size: 0.95rem;
-            min-width: 120px;
+            font-size: 1rem;
+            min-width: 140px;
+        }
+
+        /* Spesial Kolom Waktu */
+        .time-cell {
+            background: #f1f5f9;
+            font-weight: bold;
+            color: var(--primary);
+            width: 150px;
         }
 
         /* Cell Edit Mode */
         td[contenteditable="true"]:focus {
             background: #fff;
-            outline: 2px solid var(--primary-blue);
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            outline: 2px solid var(--primary);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
         }
 
-        .time-cell {
-            background: var(--bg-body);
+        .action-cell {
+            width: 60px;
+            color: var(--danger);
+            cursor: pointer;
             font-weight: bold;
-            color: var(--primary-blue);
+            font-size: 1.2rem;
+            background: #fff1f2;
         }
 
-        .action-cell { width: 50px; color: var(--danger); cursor: pointer; font-weight: bold; }
+        .action-cell:hover { background: #ffe4e6; }
 
-        .hint {
-            margin-top: 15px;
+        .footer-info {
+            margin-top: 20px;
             font-size: 0.85rem;
-            color: var(--text-light);
-            font-style: italic;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Animasi masuk */
+        tr { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-<div class="main-card">
+<div class="container">
     <div class="header">
-        <p>JADWAL BELAJAR 11 TJKT</p>
         <h1>Whibie Aldyansyah S.</h1>
+        <p>Jadwal Belajar Kelas 11 TJKT</p>
     </div>
 
     <div class="controls">
-        <input type="text" id="timeInput" placeholder="Masukkan Waktu (Contoh: 07:30 - 09:00)">
+        <input type="text" id="timeInput" placeholder="Ketik Waktu (Misal: 07:30 - 09:00)">
         <button class="btn btn-add" onclick="autoAddRow()">+ Tambah Baris</button>
-        <button class="btn btn-save" onclick="saveJadwal()">💾 Simpan Jadwal</button>
+        <button class="btn btn-save" onclick="saveData()">💾 Simpan Jadwal</button>
         <button class="btn btn-reset" onclick="resetJadwal()">Reset</button>
     </div>
 
@@ -170,7 +204,7 @@
                     <th>Rabu</th>
                     <th>Kamis</th>
                     <th>Jumat</th>
-                    <th style="background: #f1f5f9; color: #64748b;">Aksi</th>
+                    <th style="background: #cbd5e1; color: #475569;">Hapus</th>
                 </tr>
             </thead>
             <tbody id="scheduleBody">
@@ -178,23 +212,25 @@
         </table>
     </div>
 
-    <div class="hint">
-        * Tip: Klik pada kotak mana saja untuk mengubah isi pelajaran. Klik "Simpan Jadwal" agar data tidak hilang.
+    <div class="footer-info">
+        <span>* Klik langsung pada teks untuk mengedit isi pelajaran.</span>
+        <span>Versi: 1.0 (Modern Light)</span>
     </div>
 </div>
 
 <script>
-    // Load data saat pertama kali buka
+    // Memuat data dari memori browser saat halaman dibuka
     window.onload = function() {
-        const savedData = JSON.parse(localStorage.getItem('jadwal_whibie_v3'));
-        if (savedData && savedData.length > 0) {
-            renderTable(savedData);
+        const saved = localStorage.getItem('jadwal_whibie_final');
+        if (saved) {
+            renderTable(JSON.parse(saved));
         } else {
-            // Data awal contoh
-            const defaultRows = [
-                ["07:30 - 09:00", "Matematika", "AIJ", "B. Inggris", "ASJ", "Agama"]
+            // Data default saat pertama kali dijalankan
+            const defaultData = [
+                ["07:30 - 09:00", "Matematika", "AIJ", "B. Indonesia", "TLJ", "Agama"],
+                ["09:15 - 10:45", "B. Inggris", "ASJ", "Pkn", "WAN", "PJOK"]
             ];
-            renderTable(defaultRows);
+            renderTable(defaultData);
         }
     };
 
@@ -202,23 +238,23 @@
     function autoAddRow() {
         const timeVal = document.getElementById('timeInput').value;
         if (!timeVal) {
-            alert("Silakan masukkan rentang waktu terlebih dahulu!");
+            alert("Harap isi rentang waktu terlebih dahulu!");
             return;
         }
 
         const tbody = document.getElementById('scheduleBody');
         const tr = document.createElement('tr');
         
-        // Buat 6 kolom otomatis (Waktu + 5 Hari)
+        // Buat 6 kolom otomatis: 1 Jam + 5 Hari
         let rowHtml = `<td class="time-cell" contenteditable="true">${timeVal}</td>`;
         for (let i = 0; i < 5; i++) {
-            rowHtml += `<td contenteditable="true">Isi Pelajaran</td>`;
+            rowHtml += `<td contenteditable="true">Pelajaran</td>`;
         }
         rowHtml += `<td class="action-cell" onclick="deleteRow(this)">×</td>`;
         
         tr.innerHTML = rowHtml;
         tbody.appendChild(tr);
-        document.getElementById('timeInput').value = ''; // Reset input
+        document.getElementById('timeInput').value = ''; // Kosongkan input
     }
 
     function renderTable(dataArray) {
@@ -237,12 +273,12 @@
     }
 
     function deleteRow(btn) {
-        if(confirm("Hapus baris ini?")) {
+        if(confirm("Hapus baris jadwal ini?")) {
             btn.parentElement.remove();
         }
     }
 
-    function saveJadwal() {
+    function saveData() {
         const rows = document.querySelectorAll('#scheduleBody tr');
         const allData = [];
 
@@ -254,13 +290,13 @@
             allData.push(rowData);
         });
 
-        localStorage.setItem('jadwal_whibie_v3', JSON.stringify(allData));
-        alert("Jadwal Whibie Aldyansyah S. berhasil disimpan di browser!");
+        localStorage.setItem('jadwal_whibie_final', JSON.stringify(allData));
+        alert("Jadwal Berhasil Disimpan! Data kamu aman meskipun browser ditutup.");
     }
 
     function resetJadwal() {
-        if(confirm("Hapus semua jadwal dan reset?")) {
-            localStorage.removeItem('jadwal_whibie_v3');
+        if(confirm("Apakah kamu yakin ingin menghapus semua data dan reset ke awal?")) {
+            localStorage.removeItem('jadwal_whibie_final');
             location.reload();
         }
     }
